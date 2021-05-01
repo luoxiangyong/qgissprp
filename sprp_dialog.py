@@ -34,10 +34,9 @@ from qgis.core import *
 
 from qgis.utils import iface
 
-from .alg import *
-
-from .shapefile_exporter import *
-from .memory_exporter import *
+from .sprp.sprp.core.alg import *
+from .sprp.sprp.exporter.shapefile import *
+from .sprp.sprp.exporter.memory import *
 
 MAIN_DLG = None
 
