@@ -35,8 +35,8 @@ from qgis.core import *
 from qgis.utils import iface
 
 from .sprp.sprp.core.alg import *
-from .sprp.sprp.exporter.shapefile import *
-from .sprp.sprp.exporter.memory import *
+from .sprp.sprp.export.shapefile import *
+from .sprp.sprp.export.memory import *
 
 MAIN_DLG = None
 
@@ -325,7 +325,7 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
                                 "sidewiseOverlap":sidewiseOverlap, 
                             })
 
-            sc.setPogressCallback(setProgressVaue)
+            sc.set_pogress_callback(setProgressVaue)
 
             sc.calculate()
             me = MemoryExporter()
