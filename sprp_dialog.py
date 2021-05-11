@@ -90,12 +90,23 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
         self.saveCheckBox.clicked.connect(self.saveCheckBox_triggered)
 
     def checkToSaveFile(self,sc,path,basename):
-        sfe = ShapefileExporter(path,basename)
-        sfe.save(sc)
+        if self.saveCheckBox.isChecked():
+            if os.path.exists(path) == True:
+                sfe = ShapefileExporter(path,basename)
+                sfe.save(sc)
+            else:
+                QMessageBox.warning(self, "Error"," Please select a correct path!")
+                return 
 
     def saveCheckBox_triggered(self):
-        self.fileNameEdit.setEnabled(True)
-        self.savePathEdit.setEnabled(True)
+        if self.saveCheckBox.isChecked():
+            self.fileNameEdit.setEnabled(True)
+            self.savePathEdit.setEnabled(True)
+            self.selectPathBtn.setEnabled(True)
+        else:
+            self.fileNameEdit.setEnabled(False)
+            self.savePathEdit.setEnabled(False)
+            self.selectPathBtn.setEnabled(False)
 
     def setProgressValue(self,currentValue,totalValue,msg):
         self.progressBar.setFormat("%p% --\t" + msg)
@@ -143,10 +154,8 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
             if geom.type() == QgsWkbTypes.PolygonGeometry:
                 if geomSingleType:
                     x = geom.asPolygon()
-                    
-                    print("Polygon: ", x, "length: ", geom.length(),"area: ", geom.area())
-
-                    print(geom.asWkt())
+                    #print("Polygon: ", x, "length: ", geom.length(),"area: ", geom.area())
+                    #print(geom.asWkt())
 
                     self.wkt_polygon = geom.asWkt()
                     
@@ -155,17 +164,10 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
     # line 
     def selectLinePushButton_clicked(self):
         #self.hide()
-        
-
         vectorDraftLyr = QgsVectorLayer('LineString?crs=epsg:4326', 
                                         'Please Draw A Line for Planning' , 
                                         "memory")
         QgsProject().instance().addMapLayer(vectorDraftLyr)
-
-        #vectorDraftLyr.startEditing()
-      
-        # remove the original myvl
-        #QgsProject.instance().layerTreeRoot().removeChildNode(myvl)
         # set layer active 
         self.hide()
         iface.setActiveLayer(vectorDraftLyr)
@@ -174,10 +176,7 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
         # enable tool
         iface.actionAddFeature().trigger() 
         #self.show()
-
         iface.actionToggleEditing().triggered.connect(self.endDrawLine)
-
-        print("get here")
 
     def endDrawLine(self):
         iface.actionToggleEditing().triggered.disconnect(self.endDrawLine)
@@ -227,7 +226,6 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
         courseOverlap = float(self.courseOverlapSpin.value()) / 100
         sidewiseOverlap = float(self.sidewiseOverlapSpin.value()) / 100
 
-    
         cameraWidth = int(self.cameraWidthEdit.text())
         cameraHeight = int(self.cameraHeightEdit.text())
 
@@ -235,6 +233,10 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
             if self.savePathEdit.text() =='' or self.fileNameEdit.text() =='':
                 QMessageBox.warning(self, "Warning"," Please enter the filename and filepath!")
                 return
+            
+        if os.path.exists(self.savePathEdit.text()) is not True:
+            QMessageBox.warning(self, "Error"," Please select a correct path!")
+            return 
 
         ##################################
         # 多边形处理
@@ -258,7 +260,7 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
 
                 self.checkToSaveFile(sc,self.savePathEdit.text(),self.fileNameEdit.text())
             else:
-                QMessageBox.warning(self, "Warning"," 请画多边形!")
+                QMessageBox.warning(self, "Warning"," Please draw a polygon!")
 
             return
 
@@ -339,9 +341,9 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
             <table cellspacing="0" width=100% >
                 <thead>
                     <tr bgcolor="#69c401"  style="color:aliceblue">
-                        <td align="center" width=30% >指标</td>
-                        <td align="center" width=50%>数值</td>
-                        <td align="center">备注</td>
+                        <td align="center" width=30% >specification</td>
+                        <td align="center" width=50%>value</td>
+                        <td align="center">comment</td>
                     </tr>
                 </thead>
                 <tr >

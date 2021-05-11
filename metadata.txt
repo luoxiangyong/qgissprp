@@ -6,11 +6,11 @@
 name=Simple Photogrammetry Route Planner
 qgisMinimumVersion=3.0
 description=A imple photogrammetry route planner.
-version=0.1
+version=0.3.0
 author=Xiangyong Luo
 email=solo_lxy@126.com
 
-about=A simple photogrammetry route planner: for normal or UAV photogrammetry routing line designer automaticly base on a polyon area.
+about=A simple photogrammetry route planner: for normal or UAV photogrammetry routing line designer automaticly base on a polygon area.
 
 repository=http://github.com/luoxianguong/qgissprp.git
 # End of mandatory metadata

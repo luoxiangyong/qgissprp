@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>568</width>
+    <width>741</width>
     <height>765</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Simple Photogrammetry Route Planner - v0.1.0</string>
+   <string>Simple Photogrammetry Route Planner</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_6">
    <item>
@@ -237,7 +237,7 @@
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="page">
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -439,7 +439,7 @@
         <item row="0" column="0">
          <widget class="QCheckBox" name="saveCheckBox">
           <property name="text">
-           <string>Save To The File</string>
+           <string>Save to a Shapefile</string>
           </property>
          </widget>
         </item>
