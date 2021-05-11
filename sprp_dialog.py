@@ -92,7 +92,7 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
     def checkToSaveFile(self,sc,path,basename):
         if self.saveCheckBox.isChecked():
             if os.path.exists(path) == True:
-                sfe = ShapefileExporter(path,basename)
+                sfe = ShapefileExportor(path,basename)
                 sfe.save(sc)
             else:
                 QMessageBox.warning(self, "Error"," Please select a correct path!")
@@ -255,7 +255,7 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
                                 })
 
                 sc.calculate()
-                me = MemoryExporter()
+                me = MemoryExportor()
                 me.save(sc)
 
                 self.checkToSaveFile(sc,self.savePathEdit.text(),self.fileNameEdit.text())
@@ -308,7 +308,7 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
                                 })
 
                 sc.calculate()
-                me = MemoryExporter()
+                me = MemoryExportor()
                 me.save(sc)
 
                 self.checkToSaveFile(sc,self.savePathEdit.text(),"{}-{}".format(self.fileNameEdit.text(),lineIndex))
@@ -330,7 +330,7 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
             sc.set_pogress_callback(setProgressVaue)
 
             sc.calculate()
-            me = MemoryExporter()
+            me = MemoryExportor()
             me.save(sc)
 
             self.checkToSaveFile(sc,self.savePathEdit.text(),self.fileNameEdit.text())

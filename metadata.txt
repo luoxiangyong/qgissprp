@@ -12,7 +12,8 @@ email=solo_lxy@126.com
 
 about=A simple photogrammetry route planner: for normal or UAV photogrammetry routing line designer automaticly base on a polygon area.
 
-repository=http://github.com/luoxianguong/qgissprp.git
+repository=https://github.com/luoxianguong/qgissprp.git
+tracker=https://github.com/luoxianguong/qgissprp.git
 # End of mandatory metadata
 
 # Recommended items:
