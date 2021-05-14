@@ -6,7 +6,7 @@
 name=Simple Photogrammetry Route Planner
 qgisMinimumVersion=3.0
 description=A simple photogrammetry route planner.
-version=0.3.1
+version=0.3.2
 author=Xiangyong Luo
 email=solo_lxy@126.com
 
