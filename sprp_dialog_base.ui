@@ -331,7 +331,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Please use counter-clockwise method to draw a polygon.</string>
+             <string>Please use counter-clockwise method to draw a polygon. Please end the edit mode when you complete.</string>
             </property>
            </widget>
           </item>

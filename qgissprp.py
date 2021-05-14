@@ -49,12 +49,15 @@ class SimplePhotogrammetryRoutePlanner:
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
         locale = QSettings().value('locale/userLocale')[0:2]
+        print(locale)
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
-            'SimplePhotogrammetryRoutePlanner_{}.qm'.format(locale))
+            'qgissprp_{}.qm'.format(locale))
 
+        print(locale_path)
         if os.path.exists(locale_path):
+            print("install translator")
             self.translator = QTranslator()
             self.translator.load(locale_path)
             QCoreApplication.installTranslator(self.translator)

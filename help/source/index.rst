@@ -3,8 +3,25 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to SimplePhotogrammetryRoutePlanner's documentation!
-============================================
+Welcome to SPRP(Simple Photogrammetry Route Planner)'s documentation!
+=====================================================================
+
+How to use
+==========
+
+ 1. Open GIS
+ 2. From menu **Plugins** click **Manage and Install Plugins...**
+ 3. After the QGIS fetch metadata from official repository, select **All** panel,
+    type **simple**, select **Simple Photogrammetry Route Planner**, install it.
+    All done!
+
+
+About the code
+==============
+You can find the core algorithm from 
+[sprp](https://github.com/luoxiangong/sprp.git). Please enjoy!
+
+
 
 Contents:
 
