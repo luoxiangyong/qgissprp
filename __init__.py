@@ -32,5 +32,5 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :type iface: QgsInterface
     """
     #
-    from .qgissprp import SimplePhotogrammetryRoutePlanner
+    from .SimplePhotogrammetryRoutePlanner import SimplePhotogrammetryRoutePlanner
     return SimplePhotogrammetryRoutePlanner(iface)

@@ -49,15 +49,15 @@ class SimplePhotogrammetryRoutePlanner:
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
         locale = QSettings().value('locale/userLocale')[0:2]
-        print(locale)
+        #print(locale)
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
             'qgissprp_{}.qm'.format(locale))
 
-        print(locale_path)
+        #print(locale_path)
         if os.path.exists(locale_path):
-            print("install translator")
+            #print("install translator")
             self.translator = QTranslator()
             self.translator.load(locale_path)
             QCoreApplication.installTranslator(self.translator)
@@ -69,7 +69,7 @@ class SimplePhotogrammetryRoutePlanner:
         # Check if plugin was started the first time in current QGIS session
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
-        print("----------------++++++++++")
+        #print("----------------++++++++++")
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
