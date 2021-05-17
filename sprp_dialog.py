@@ -34,9 +34,12 @@ from qgis.core import *
 
 from qgis.utils import iface
 
-from .sprp.sprp.core.alg import *
-from .sprp.sprp.export.shapefile import *
-from .sprp.sprp.export.memory import *
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(__file__),'sprp'))
+
+from sprp.core.alg import *
+from sprp.export.shapefile import *
+from sprp.export.memory import *
 
 MAIN_DLG = None
 
@@ -63,8 +66,6 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-
-        
 
         self.stackedWidget.setCurrentIndex(0)
         
@@ -138,7 +139,7 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
 
         iface.actionToggleEditing().triggered.connect(self.endDrawPolygon)
 
-        print("get here") 
+        #print("get here") 
 
     def endDrawPolygon(self):
         iface.actionToggleEditing().triggered.disconnect(self.endDrawPolygon)
@@ -147,7 +148,7 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
 
         selection = vlayer.getFeatures()
         count = vlayer.featureCount()
-        print("当前选择层有特征数：%d" % count)
+        #print("当前选择层有特征数：%d" % count)
         for feature in selection:
             geom = feature.geometry()
             geomSingleType = QgsWkbTypes.isSingleType(geom.wkbType())
@@ -233,32 +234,37 @@ class SimplePhotogrammetryRoutePlannerDialog(QtWidgets.QDialog, FORM_CLASS):
             if self.savePathEdit.text() =='' or self.fileNameEdit.text() =='':
                 QMessageBox.warning(self, "Warning"," Please enter the filename and filepath!")
                 return
+
+            if os.path.exists(self.savePathEdit.text()) is not True:
+                QMessageBox.warning(self, "Error"," Please select a correct path!")
+                return 
             
-        if os.path.exists(self.savePathEdit.text()) is not True:
-            QMessageBox.warning(self, "Error"," Please select a correct path!")
-            return 
 
         ##################################
         # 多边形处理
         if self.polygonModeRadioButton.isChecked():
             if self.wkt_polygon:
-                sc = SimplePolygonCalculator(self.wkt_polygon, 
-                                    **{
-                                    "cameraWidth": cameraWidth,
-                                    "cameraHeight":cameraHeight,
-                                    "focusLength":focusLength,
-                                    "pixelSize":pixelSize,
-                                    "gsd":gsd,
-                                    "flightSpeed":flightSpeed,
-                                    "courseOverlap":courseOverlap,
-                                    "sidewiseOverlap":sidewiseOverlap, 
-                                })
+                try:
+                    sc = SimplePolygonCalculator(self.wkt_polygon, 
+                                        **{
+                                        "cameraWidth": cameraWidth,
+                                        "cameraHeight":cameraHeight,
+                                        "focusLength":focusLength,
+                                        "pixelSize":pixelSize,
+                                        "gsd":gsd,
+                                        "flightSpeed":flightSpeed,
+                                        "courseOverlap":courseOverlap,
+                                        "sidewiseOverlap":sidewiseOverlap, 
+                                    })
 
-                sc.calculate()
-                me = MemoryExportor()
-                me.save(sc)
+                    sc.calculate()
+                    me = MemoryExportor()
+                    me.save(sc)
 
-                self.checkToSaveFile(sc,self.savePathEdit.text(),self.fileNameEdit.text())
+                    self.checkToSaveFile(sc,self.savePathEdit.text(),self.fileNameEdit.text())
+                except Exception as e:
+                    QMessageBox.warning(self, "Error",str(e))
+                    return 
             else:
                 QMessageBox.warning(self, "Warning"," Please draw a polygon!")
 

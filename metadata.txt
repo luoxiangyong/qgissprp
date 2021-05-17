@@ -3,10 +3,10 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=Simple Photogrammetry Route Planner
+name=qgissprp
 qgisMinimumVersion=3.0
 description=A simple photogrammetry route planner.
-version=0.4.1
+version=0.5.0
 author=Xiangyong Luo
 email=solo_lxy@126.com
 
