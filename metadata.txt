@@ -45,3 +45,9 @@ Category of the plugin: Raster, Vector, Database or Web
 # If the plugin can run on QGIS Server.
 server=False
 
+changelog=0.5.0 2022-05-17
+      * fixes loading crash, but polygon creating mode don't work correctly(shaple.wkt problem).  
+      * there is still a problem on Ubuntu 20.10 when loading.
+    0.4.0 2022-05-14
+      * can work on mac osx and windows now.
+      * add zh_CN locale.
