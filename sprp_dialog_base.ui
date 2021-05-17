@@ -420,7 +420,7 @@
              <bool>false</bool>
             </property>
             <property name="text">
-             <string>/Users/luoxiangyong/Devel/test-data</string>
+             <string/>
             </property>
            </widget>
           </item>
